@@ -1,0 +1,1 @@
+select * from "Appointments" where place = $1 and day = $2 and hour = $3 and type = $4
