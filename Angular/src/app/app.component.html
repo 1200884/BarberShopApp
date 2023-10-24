@@ -1,0 +1,46 @@
+  <div id="app">
+    <nav id="bar" class="navbar navbar-expand navbar-dark bg-dark">
+      <a href="home" class="navbar-brand" routerLink="">Barber Shop</a>
+  
+      <ul class="navbar-nav mr-auto" routerLinkActive="active">
+        
+        <button *ngIf="loggedIn" id="logOut" mat-raised-button (click)="logout()">Logout</button>
+        
+        
+      </ul>
+    </nav>
+
+    <router-outlet></router-outlet>
+    <div *ngIf="loggedIn">
+      <div class="alert alert-info" *ngIf="isAClient">
+        Olá Cliente (App Component)
+      </div>
+      <div class="alert alert-info" *ngIf="isAEmployee">
+        Olá Funcionário (App Component)
+      </div>
+    </div>
+
+    <div *ngIf="!loggedIn" class="container">
+      <div *ngIf="!showRegistration" class="container">
+        <div class="screen">
+          <div class="screen__content">
+            <form class="login">
+              <asl-google-signin-button id="b1" type="standard" size="large" theme="filled_blue" shape="circle"></asl-google-signin-button>	
+              <div class="alert alert-warning" *ngIf="isSignInFailed">
+                Signup failed!
+              </div>
+            </form>
+            <button mat-raised-button (click)="showRegistrationForm()" [routerLink]="['/register']">Registe-se</button>
+          </div>
+          
+          <div class="screen__background">
+            <span class="screen__background__shape screen__background__shape4"></span>
+            <span class="screen__background__shape screen__background__shape3"></span>
+            <span class="screen__background__shape screen__background__shape2"></span>
+            <span class="screen__background__shape screen__background__shape1"></span>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
