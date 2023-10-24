@@ -39,7 +39,13 @@ export class AppComponent implements OnInit {
       // Navegar para a rota /board-employee
       console.log("alfrdedo")
       this.router.navigate(['/board-employee']);
-    }}
+    }
+    if (!this.loggedIn){
+      this.router.navigate(['/']);
+
+    }
+  
+  }
 
   ngOnInit(): void {
     console.log("ngnOnInit app accessed")

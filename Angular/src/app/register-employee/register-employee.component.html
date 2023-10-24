@@ -1,4 +1,5 @@
-<form (submit)="onSubmitEmployee()">
+<div *ngIf="isEmployee">
+  <form (submit)="onSubmitEmployee()">
     <div class="form-group">
       <label for="firstName">Primeiro Nome</label>
       <input type="text" id="firstName" name="firstName" class="form-control" [(ngModel)]="form.firstName">
@@ -18,12 +19,12 @@
     <button type="submit" class="btn btn-primary">Registar</button>
     <button class="btn btn-primary" (click)="goBack(); hideRegistrationForm()">Voltar</button>
     <div *ngIf="registrationAttempted">
-  
-    <div *ngIf="isSuccessful" class="alert alert-success">
-      {{errorMessage}}
+      <div *ngIf="isSuccessful" class="alert alert-success">
+        {{errorMessage}}
+      </div>
+      <div *ngIf="!isSuccessful" class="alert alert-success">
+        {{errorMessage}}
+      </div>
     </div>
-    <div *ngIf="!isSuccessful" class="alert alert-success">
-      {{errorMessage}}
-    </div>
-  </div>
   </form>
+</div>

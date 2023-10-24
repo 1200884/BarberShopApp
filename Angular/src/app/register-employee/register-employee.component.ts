@@ -3,7 +3,7 @@ import { User } from 'src/app/_models/User';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-
+import {SocialAuthService,SocialUser} from '@abacritt/angularx-social-login';
 @Component({
   selector: 'app-register-employee',
   templateUrl: './register-employee.component.html',
@@ -23,8 +23,20 @@ export class RegisterEmployeeComponent implements OnInit {
   isRegistrationFormVisible=false;
   showRegistration=false;
   registrationAttempted = false; 
-  
-  constructor(private authService: AuthService,private location: Location,private router: Router) { }
+  title = 'Angular12JwtAuth';
+  private roles: string[] = [];
+  username?: string;
+  user: SocialUser | undefined;
+  loggedIn: boolean | undefined;
+  isSignInFailed = false;
+  isAClient= false;
+  isAEmployee=false;
+  constructor(private authService: AuthService,public socialAuthService: SocialAuthService,private location: Location,private router: Router) { 
+    if (this.isAEmployee) {
+      // Navegar para a rota /board-employee
+      console.log("is employee")
+    }
+  }
 
   ngOnInit(): void {
     console.log("register component ngoninit")
@@ -65,4 +77,51 @@ export class RegisterEmployeeComponent implements OnInit {
   hideRegistrationForm() {
     this.showRegistration = false;
   }
+  verifyLogin() {
+    console.log("verify login")
+    this.socialAuthService.authState.subscribe((user) => {
+      this.user = user;
+      console.log("alberto é "+this.loggedIn)
+      this.loggedIn = user != null; 
+      if (this.loggedIn) {
+        console.log(user.email);
+        this.authService.logIn(user.email).subscribe(
+          data => {
+            this.isEmployee();
+           
+            // Chame isClient() aqui
+          },
+          err => {
+            console.log("erro");
+            this.socialAuthService.signOut();
+            this.isSignInFailed = true;
+          }
+        );
+        
+        console.log("this is client"+this.isAClient)
+        this.hideRegistrationForm();
+
+      }
+      else{
+        console.log(this.loggedIn+ "is not loggedin?")
+        this.loggedIn=false;
+      }
+    });
+  }
+
+isEmployee() {
+  console.log("isEmployee acedido");
+  if (this.user) {
+    this.authService.isEmployee(this.user.email).subscribe((isEmployee) => {
+      if (isEmployee) {
+        console.log('Usuário é um Employee.');
+        this.isAEmployee=true;
+        this.router.navigate(['/board-employee']);
+      } else {
+        this.isAEmployee=false;
+        console.log('Usuário não é um Employee.');
+      }
+    });
+  }
+}
 }
