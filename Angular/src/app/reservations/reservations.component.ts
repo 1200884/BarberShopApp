@@ -1,3 +1,4 @@
+// reservations.component.ts
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -9,9 +10,10 @@ import { AppointmentService } from '../_services/appointment.service';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements AfterViewInit {
-  @ViewChild('calendar') calendarRef!: ElementRef; // Use "!" para indicar inicialização segura
+  @ViewChild('calendar') calendarRef!: ElementRef;
   calendar: any;
   appointments: any[] = [];
+  selectedAppointment: any; // Variável para rastrear o compromisso selecionado
 
   constructor(private appointmentService: AppointmentService) {}
 
@@ -26,10 +28,17 @@ export class ReservationsComponent implements AfterViewInit {
     this.calendar = new Calendar(this.calendarRef.nativeElement, {
       plugins: [dayGridPlugin],
       initialView: 'dayGridMonth',
-      events: this.appointments.map(appointment => ({
-        title: appointment.title,
-        start: appointment.start // ou outra propriedade da sua resposta do serviço
-      }))
+      events: this.appointments.map(appointment => {
+        const eventDate = new Date(appointment.day);
+        console.log('Nome:', appointment.name, 'Data:', eventDate);
+        return {
+          date: eventDate,
+          appointmentDetails: appointment
+        };
+      }),
+      eventClick: (info) => {
+        this.selectedAppointment = info.event.extendedProps.appointmentDetails; // Defina o compromisso selecionado
+      }
     });
     this.calendar.render();
   }

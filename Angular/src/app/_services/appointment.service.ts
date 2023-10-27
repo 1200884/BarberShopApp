@@ -10,6 +10,6 @@ export class AppointmentService {
 
   constructor(private http: HttpClient) { }
   getAppointments(): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL);
+    return this.http.get<Appointment[]>(environment.LOGISTICS_URL_LOCAL + environment.APPOINTMENTS_URL);
   }
 }
