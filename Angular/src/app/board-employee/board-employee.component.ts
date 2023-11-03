@@ -18,4 +18,8 @@ export class BoardEmployeeComponent {
     // Redirecionar para a página de visualização de reservas
     this.router.navigate(['/reservations']);
   }
+  
+  disableEmployee(){
+    this.router.navigate(['/disable-employee'])
+  }
 }

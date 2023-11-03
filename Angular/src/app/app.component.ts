@@ -80,6 +80,7 @@ export class AppComponent implements OnInit {
           data => {
             this.isClient();
             this.isEmployee();
+            this.authService.setUserEmail(user.email);
            
             // Chame isClient() aqui
           },

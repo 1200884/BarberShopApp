@@ -14,7 +14,15 @@ const httpOptions = {
 export class AuthService {
   
   constructor(private http: HttpClient) { }
+  private userEmail: string | null = null;
 
+  setUserEmail(email: string) {
+    this.userEmail = email;
+  }
+
+  getUserEmail(): string | null {
+    return this.userEmail;
+  }
   register(user: User | undefined): Observable<User> {
     return this.http.post<User>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL+"/signup",user);
   }
@@ -24,13 +32,17 @@ export class AuthService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL);
   }
-  inactive(email: string): Observable<User> {
-    return this.http.delete<User>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL+"/"+email);
-  }
+ 
   isClient(email: string): Observable<boolean>{
     return this.http.get<boolean>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL+"/isclient/"+email);
   }
   isEmployee(email: string): Observable<boolean>{
     return this.http.get<boolean>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL+"/isemployee/"+email);
+  }
+  inactive(email: string): Observable<boolean> {
+    console.log("email service"+email);
+    const url = environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL + "/deleteemployee/" + email ;
+    console.log("URL da solicitação DELETE: " + url);
+    return this.http.get<boolean>(url);
   }
 }

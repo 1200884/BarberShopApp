@@ -10,6 +10,7 @@ import { TesteComponent } from './teste/teste.component';
 import { BoardEmployeeComponent } from './board-employee/board-employee.component';
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { DisableEmployeeComponent } from './disable-employee/disable-employee.component';
 const routes: Routes = [
   //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'users', component: GetUsersComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'teste', component: TesteComponent},
   { path: 'board-employee', component: BoardEmployeeComponent},
   { path: 'register-employee', component: RegisterEmployeeComponent},
-  { path: 'reservations', component: ReservationsComponent}
+  { path: 'reservations', component: ReservationsComponent},
+  { path: 'disable-employee', component: DisableEmployeeComponent}
   //{ path: 'login/callback', component: OktaCallbackComponent },
 ];
 

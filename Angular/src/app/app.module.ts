@@ -18,6 +18,7 @@ import { TesteComponent } from './teste/teste.component';
 import { BoardEmployeeComponent } from './board-employee/board-employee.component';
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 import { ReservationsComponent } from './reservations/reservations.component';
+import { DisableEmployeeComponent } from './disable-employee/disable-employee.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ReservationsComponent } from './reservations/reservations.component';
     TesteComponent,
     BoardEmployeeComponent,
     RegisterEmployeeComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    DisableEmployeeComponent
    
   ],
   imports: [
