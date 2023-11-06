@@ -39,10 +39,14 @@ export class AuthService {
   isEmployee(email: string): Observable<boolean>{
     return this.http.get<boolean>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL+"/isemployee/"+email);
   }
-  inactive(email: string): Observable<boolean> {
-    console.log("email service"+email);
-    const url = environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL + "/deleteemployee/" + email ;
+  inactive(email: string): Observable<boolean>{
+    console.log("email service: "+email);
+    const url = environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL+"/deleteemployee/"+email ;
     console.log("URL da solicitação DELETE: " + url);
+    console.log(this.http.get<boolean>(url))
     return this.http.get<boolean>(url);
+    
+    //http://localhost:2223/api/auth/deleteemployee/jgaspar2002@gmail.com
+    //http://localhost:2223/api/auth/deleteemployee/jgaspar2002@gmail.com
   }
 }
