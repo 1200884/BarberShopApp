@@ -12,12 +12,12 @@
 
     <router-outlet></router-outlet>
     <div *ngIf="loggedIn">
-      <div class="alert alert-info" *ngIf="isAClient">
+      <!-- <div class="alert alert-info" *ngIf="isAClient">
         Olá Cliente (App Component)
       </div>
       <div class="alert alert-info" *ngIf="isAEmployee">
-        Olá Funcionário (App Component)
-      </div>
+         Olá Funcionário (App Component)
+      </div> -->
     </div>
 
     <div *ngIf="!loggedIn" class="container">

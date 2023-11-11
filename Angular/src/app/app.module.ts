@@ -19,6 +19,10 @@ import { BoardEmployeeComponent } from './board-employee/board-employee.componen
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { DisableEmployeeComponent } from './disable-employee/disable-employee.component';
+import { SolariosComponent } from './solarios/solarios.component';
+import { CabeleireirosComponent } from './cabeleireiros/cabeleireiros.component';
+import { BarbeirosComponent } from './barbeiros/barbeiros.component';
+import { EsteticistasComponent } from './esteticistas/esteticistas.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +37,11 @@ import { DisableEmployeeComponent } from './disable-employee/disable-employee.co
     BoardEmployeeComponent,
     RegisterEmployeeComponent,
     ReservationsComponent,
-    DisableEmployeeComponent
+    DisableEmployeeComponent,
+    SolariosComponent,
+    CabeleireirosComponent,
+    BarbeirosComponent,
+    EsteticistasComponent
    
   ],
   imports: [

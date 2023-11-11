@@ -15,4 +15,27 @@
     margin: 5px 0;
     color: #555;
   }
+  .fc-event-main-frame > .fc-event-time {
+    display: none;
+  }
+
+.fc-event-time {
+  display: none !important;
+}
+/* Adicione isso ao seu arquivo de estilo CSS */
+
+.fc-timegrid-event .fc-event-time,
+.fc-timegrid-event .fc-event-time span {
+    display: none !important;
+}
+
+/* Adicione isso ao seu arquivo de estilo CSS */
+
+.fc-timegrid-event .fc-event-time,
+.fc-timegrid-event .fc-event-main-frame .fc-event-time {
+    display: none !important;
+}
+
+  
+  
   

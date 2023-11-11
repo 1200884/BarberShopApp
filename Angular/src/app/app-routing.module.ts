@@ -11,6 +11,10 @@ import { BoardEmployeeComponent } from './board-employee/board-employee.componen
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { DisableEmployeeComponent } from './disable-employee/disable-employee.component';
+import { SolariosComponent } from './solarios/solarios.component';
+import { EsteticistasComponent } from './esteticistas/esteticistas.component';
+import { CabeleireirosComponent } from './cabeleireiros/cabeleireiros.component';
+import { BarbeirosComponent } from './barbeiros/barbeiros.component';
 const routes: Routes = [
   //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'users', component: GetUsersComponent },
@@ -23,7 +27,11 @@ const routes: Routes = [
   { path: 'board-employee', component: BoardEmployeeComponent},
   { path: 'register-employee', component: RegisterEmployeeComponent},
   { path: 'reservations', component: ReservationsComponent},
-  { path: 'disable-employee', component: DisableEmployeeComponent}
+  { path: 'disable-employee', component: DisableEmployeeComponent},
+  { path: 'solarios', component: SolariosComponent},
+  { path: 'esteticistas', component: EsteticistasComponent},
+  { path: 'cabeleireiros', component: CabeleireirosComponent},
+  { path: 'barbeiros', component: BarbeirosComponent}
   //{ path: 'login/callback', component: OktaCallbackComponent },
 ];
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board-client',
@@ -6,5 +7,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./board-client.component.css']
 })
 export class BoardClientComponent {
+  constructor(private router: Router) {}
 
+  solarios() {
+    // Redirecionar para a página de registro de funcionários
+    this.router.navigate(['/solarios']);
+  }
+
+  barbearias() {
+    // Redirecionar para a página de visualização de reservas
+    this.router.navigate(['/barbearias']);
+  }
+  
+  cabeleireiros(){
+    this.router.navigate(['/cabeleireiros'])
+  }
+
+  esteticistas(){
+    this.router.navigate(['/esteticistas'])
+  }
 }

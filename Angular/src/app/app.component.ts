@@ -31,13 +31,14 @@ export class AppComponent implements OnInit {
   isSignInFailed = false;
   isAClient= false;
   isAEmployee=false;
-  constructor(private authService: AuthService,public socialAuthService: SocialAuthService,private router: Router/*, private _oktaStateService: OktaAuthStateService, @Inject(OKTA_AUTH) private _oktaAuth: OktaAuth*/) {
+  constructor(private authService: AuthService,public socialAuthService: SocialAuthService,private router: Router) {
     if (this.isAClient) {
       this.router.navigate(['/board-client']);
     }
     if (this.isAEmployee) {
       // Navegar para a rota /board-employee
       console.log("alfrdedo")
+      console.log("------------------------------------------")
       this.router.navigate(['/board-employee']);
     }
     if (!this.loggedIn){
@@ -111,7 +112,7 @@ export class AppComponent implements OnInit {
           // O usuário é um cliente
           console.log('Usuário é um cliente.');
           this.isAClient=true;
-          // Faça ações específicas do cliente aqui, como atualizar o menu.
+          this.router.navigate(['/board-client']);
         } else {
           this.isAClient=false;
           // O usuário não é um cliente

@@ -30,42 +30,60 @@ export class ReservationsComponent implements AfterViewInit {
   }
 
   initCalendar() {
-   
     const filteredAppointments = this.appointments.filter(appointment => {
-      if(this.userEmail != null){
-      return appointment.hour.trim() === this.userEmail.trim();}
-      else{return null}
+      if (this.userEmail != null) {
+        return appointment.hour.trim() === this.userEmail.trim();
+      } else {
+        return null;
+      }
     });
-  
+
     this.calendar = new Calendar(this.calendarRef.nativeElement, {
       plugins: [dayGridPlugin, timeGridPlugin],
       initialView: 'timeGridWeek',
       slotDuration: '00:30:00',
       views: {
         timeGrid: {
-          allDaySlot: false, // Remova a visualização All Day
+          allDaySlot: false // Remova a visualização All Day
         },
       },
-      slotMinTime: '08:00:00', // Define o horário mínimo para 8:00
-      slotMaxTime: '23:00:00', // Define o horário máximo para 23:00
+      slotMinTime: '08:00:00',
+      slotMaxTime: '22:00:00',
       slotLabelContent: (arg) => {
         const date = arg.date;
-        const hour = date.getHours();
-        const minute = date.getMinutes();
-        const formattedTime = `${hour}:${minute.toString().padStart(2, '0')}`;
+        const formattedTime = date.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        });
         return formattedTime;
       },
+      contentHeight: 'auto',
       events: filteredAppointments.map(appointment => {
         const eventDate = new Date(appointment.day);
         const eventEndDate = new Date(appointment.day);
         eventEndDate.setMinutes(eventEndDate.getMinutes() + 30);
+  
+        const formattedTime = eventDate.toLocaleTimeString('pt-BR', {
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+        const formattedEndTime = eventEndDate.toLocaleTimeString('pt-BR', {
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+  
+        const title = ` ${appointment.name}`;
+  
         return {
-          title: appointment.name,
+          title: title,
           start: eventDate,
           end: eventEndDate,
-          appointmentDetails: appointment
+          classNames: ['fc-event-time'], // Adicione a classe para ser ignorada no CSS
+          appointmentDetails: appointment,
         };
       }),
+  
       eventClick: (info) => {
         this.selectedAppointment = info.event.extendedProps.appointmentDetails;
       }
@@ -73,6 +91,8 @@ export class ReservationsComponent implements AfterViewInit {
   
     this.calendar.render();
   }
+  
+  
   
 
 }
