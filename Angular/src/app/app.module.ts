@@ -23,7 +23,9 @@ import { SolariosComponent } from './solarios/solarios.component';
 import { CabeleireirosComponent } from './cabeleireiros/cabeleireiros.component';
 import { BarbeirosComponent } from './barbeiros/barbeiros.component';
 import { EsteticistasComponent } from './esteticistas/esteticistas.component';
-
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatCardModule} from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +43,7 @@ import { EsteticistasComponent } from './esteticistas/esteticistas.component';
     SolariosComponent,
     CabeleireirosComponent,
     BarbeirosComponent,
-    EsteticistasComponent
+    EsteticistasComponent,
    
   ],
   imports: [
@@ -51,6 +53,10 @@ import { EsteticistasComponent } from './esteticistas/esteticistas.component';
     HttpClientModule,
     NgxPaginationModule,
     SocialLoginModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    MatCardModule
+
   ],
   providers: [authInterceptorProviders, {
     provide: 'SocialAuthServiceConfig',

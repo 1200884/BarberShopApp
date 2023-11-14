@@ -10,7 +10,8 @@ export const environment = {
   //WAREHOUSE_URL_LOCAL: "https://localhost:5001/api",
 
   APPOINTMENTS_URL: "/appointment",
-  AUTH_URL: "/auth"
+  AUTH_URL: "/auth",
+  PLACES_URL: "/place",
 };
 
 /*

@@ -1,1 +1,22 @@
-<p>barbeiros works!</p>
+<button mat-raised-button>Barbearias</button>
+<div>
+  <mat-form-field>
+    <input matInput placeholder="Pesquisar" [(ngModel)]="searchTerm" (input)="filtrarBarbeiros()">
+  </mat-form-field>
+</div>
+<div *ngIf="barbeirosFiltrados && barbeirosFiltrados.length > 0" class="barbeiros-container">
+    <h2>Solários Encontrados:</h2>
+    <div class="barbeiros-items">
+      <div *ngFor="let barbeiro of barbeirosFiltrados" class="barbeiro-item" >
+        <div class="barbeiro-info">
+          {{ barbeiro.name }} - {{ barbeiro.address }}
+        </div>
+        <img
+          *ngIf="barbeiro.image"
+          [src]="'/assets/images/' + barbeiro.image"
+          alt="Imagem do barbeiro"
+          class="barbeiro-image"
+        >
+      </div>
+    </div>
+  </div>

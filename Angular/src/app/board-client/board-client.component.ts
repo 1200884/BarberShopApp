@@ -16,7 +16,7 @@ export class BoardClientComponent {
 
   barbearias() {
     // Redirecionar para a página de visualização de reservas
-    this.router.navigate(['/barbearias']);
+    this.router.navigate(['/barbeiros']);
   }
   
   cabeleireiros(){

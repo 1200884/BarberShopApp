@@ -1,1 +1,23 @@
-<p>esteticistas works!</p>
+<button mat-raised-button>Esteticistas</button>
+<div>
+  <mat-form-field>
+    <input matInput placeholder="Pesquisar" [(ngModel)]="searchTerm" (input)="filtrarEsteticistas()">
+  </mat-form-field>
+</div>
+
+<div *ngIf="esteticistasFiltrados && esteticistasFiltrados.length > 0" class="esteticistas-container">
+    <h2>Solários Encontrados:</h2>
+    <div class="esteticistas-items">
+      <div *ngFor="let esteticista of esteticistasFiltrados" class="esteticista-item" >
+        <div class="esteticista-info">
+          {{ esteticista.name }} - {{ esteticista.address }}
+        </div>
+        <img
+          *ngIf="esteticista.image"
+          [src]="'/assets/images/' + esteticista.image"
+          alt="Imagem do Esteticista"
+          class="esteticista-image"
+        >
+      </div>
+    </div>
+  </div>
