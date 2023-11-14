@@ -9,6 +9,7 @@ import travelsRoute from './routes/travelsRoute';
 import userRoute from './routes/userRoute';
 import geneticplanningRoute from './routes/geneticplanningRoute';
 import appointmentRoute from './routes/appointmentRoute';
+import placeRoute from './routes/placeRoute';
 
 export default () => {
 
@@ -22,6 +23,7 @@ export default () => {
 	travelsRoute(app);
 	userRoute(app);
 	geneticplanningRoute(app);
-	appointmentRoute(app)
+	appointmentRoute(app);
+	placeRoute(app);
 	return app
 }

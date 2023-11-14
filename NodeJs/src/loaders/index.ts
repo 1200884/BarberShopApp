@@ -54,6 +54,10 @@ export default async ({ expressApp }) => {
     name: config.controllers.appointment.name,
     path: config.controllers.appointment.path
   }
+  const placeController = {
+    name: config.controllers.place.name,
+    path: config.controllers.place.path
+  }
 
   const truckController = {
     name: config.controllers.truck.name,
@@ -92,6 +96,10 @@ export default async ({ expressApp }) => {
   const roleRepo = {
     name: config.repos.role.name,
     path: config.repos.role.path
+  }
+  const placeRepo = {
+    name: config.repos.place.name,
+    path: config.repos.place.path
   }
 
   const userRepo = {
@@ -139,6 +147,11 @@ export default async ({ expressApp }) => {
     name: config.services.role.name,
     path: config.services.role.path
   }
+  const placeService = {
+    name: config.services.place.name,
+    path: config.services.place.path
+  }
+
 
   const truckService = {
     name: config.services.truck.name,
@@ -200,7 +213,8 @@ export default async ({ expressApp }) => {
       travelsController,
       userController,
       geneticplanningController,
-      appointmentController
+      appointmentController,
+      placeController
     ],
     repos: [
       roleRepo,
@@ -212,7 +226,8 @@ export default async ({ expressApp }) => {
       deliveryRepo,
       travelsRepo,
       geneticplanningRepo,
-      appointmentRepo
+      appointmentRepo,
+      placeRepo
     ],
     services: [
       roleService,
@@ -223,7 +238,8 @@ export default async ({ expressApp }) => {
       travelsService,
       userService,
       geneticplanningService,
-      appointmentService
+      appointmentService,
+      placeService
     ]
   });
   Logger.info('✌️ Schemas, Controllers, Repositories, Services, etc. loaded');

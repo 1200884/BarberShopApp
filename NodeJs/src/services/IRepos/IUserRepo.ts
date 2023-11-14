@@ -9,5 +9,6 @@ export default interface IUserRepo extends Repo<User> {
 	findAll(): Promise<User[]>;
 	isClient(email : string):Promise<boolean>;
 	isEmployee(email : string):Promise<boolean>;
+	disableEmployee(email: string):Promise<boolean>,
 }
   

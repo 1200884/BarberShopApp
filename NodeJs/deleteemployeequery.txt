@@ -1,0 +1,1 @@
+delete from "Clientes" where email = $1 and role = 'employee';

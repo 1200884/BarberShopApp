@@ -186,4 +186,26 @@ public async isClient(email:UserEmail | string): Promise<boolean>{
       });
     });
   }
+  public async disableEmployee(email: string): Promise<boolean> {
+    const { connectionString } = config.postgres;
+    const client = new Pool({ connectionString });
+    const queryFromFile = fs.readFileSync('deleteemployeequery.txt', 'utf8');
+    try {
+      // Executa a consulta com o email passado como parâmetro
+      const query = queryFromFile.replace(/\$1/g, `'${email}'`);
+      const result = await client.query(query);
+      console.log("utilizador apagado")
+      // Verifica se há resultados
+      if (!this.findByEmail(email)) {
+        return true;
+      } else {
+       return false;
+        
+      }
+    } catch (error) {
+      console.error('Erro ao executar a consulta SQL:', error);
+    } finally {
+      client.end();
+    }
 }  
+}

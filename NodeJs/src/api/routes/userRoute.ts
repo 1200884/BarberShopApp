@@ -10,7 +10,6 @@ export default (app: Router) => {
   app.use('/auth', route);
 
   const ctrl = Container.get(config.controllers.user.name) as IUserController
-  
   route.post(
     '/signup',
     celebrate({
@@ -23,10 +22,10 @@ export default (app: Router) => {
       }),
     }),
     (req, res, next) => ctrl.createUser(req, res, next));
-
+    
+  route.get('/deleteemployee/:str',(req, res, next) => ctrl.disableUser(req.params.str, req, res, next));
   route.get('/:str',(req, res, next) => ctrl.signIn(req.params.str, req, res, next));
   route.get('',(req, res, next) => ctrl.getUsers(req, res, next));
-  route.delete('/:str',(req, res, next) => ctrl.disableUser(req.params.str, req, res, next));
   route.get('/isclient/:str', (req, res, next) => ctrl.isClient(req.params.str, req, res, next));
   route.get('/isemployee/:str', (req, res, next) => ctrl.isEmployee(req.params.str, req, res, next));
 

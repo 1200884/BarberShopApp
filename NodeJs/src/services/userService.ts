@@ -83,22 +83,16 @@ export default class UserService implements IUserService {
     }
   }
 
-  public async disableUser(email: string): Promise<Result<IUserDTO>> {
+  public async disableUser(email: string): Promise<Boolean> {
     try {
       const user = await this.userRepo.findByEmail(email);
-
+      console.log("e-mail existe")
       if (user === null) {
-        return Result.fail<IUserDTO>("User not found");
+        return false;
       }
       else {
-        user.firstName = "Sem Nome";
-        user.lastName = "Sem Nome";
-        user.email = "aaa@aaa.com";
-        user.phoneNumber = "999999999";
-        await this.userRepo.save(user);
-
-        const userDTOResult = UserMap.toDTO(user) as IUserDTO;
-        return Result.ok<IUserDTO>(userDTOResult)
+       const isUserDeleted = await this.userRepo.disableEmployee(email);
+       return isUserDeleted;
       }
     } catch (e) {
       throw e;

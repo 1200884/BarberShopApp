@@ -81,20 +81,20 @@ export default class UserController implements IUserController {
   }
   
   public async disableUser(id: string, req: Request, res: Response, next: NextFunction) {
+    console.log("------------------------------------------------------------");
     try {
-      const userOrError = await this.userServiceInstance.disableUser(id) as Result<IUserDTO>;
-
-      if (userOrError.isFailure) {
+      const result = await this.userServiceInstance.disableUser(id) as boolean;
+      console.log("disable user controller")
+      if (result) {
         return res.status(404).send();
       }
-
-      const userDTO = userOrError.getValue();
-      return res.status(200).json(userDTO);
-    }
-    catch (e) {
+  
+      return res.status(200).send(result);
+    } catch (e) {
       return next(e);
     }
   }
+  
 
   public async getUsers(req: Request, res: Response, next: NextFunction){
     try {

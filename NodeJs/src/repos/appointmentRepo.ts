@@ -125,7 +125,7 @@ public replaceQueryParameters(query, values) {
             for (var i = 0; i < appointmentRecord.rows.length; i++) {
               console.log(appointmentRecord.rows[i])
               console.log("---------")
-              console.log(appointmentRecord.rows[i].firstName)
+              console.log(appointmentRecord.rows[i].name)
               appointmentsArray.push(AppointmentMap.toDomain(appointmentRecord.rows[i]));
             }
             resolve(appointmentsArray); // Resolva a promessa com o usersArray

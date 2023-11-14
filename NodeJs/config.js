@@ -50,6 +50,10 @@ export default {
       name: "AppointmentController",
       path: "../controllers/appointmentController"
     },
+    place: {
+      name: "PlaceController",
+      path: "../controllers/placeController"
+    },
     truck: {
       name: "TruckController",
       path: "../controllers/truckController"
@@ -88,6 +92,10 @@ export default {
     role: {
       name: "RoleRepo",
       path: "../repos/roleRepo"
+    },
+    place: {
+      name: "PlaceRepo",
+      path: "../repos/placeRepo"
     },
     appointment: {
       name: "AppointmentRepo",
@@ -136,6 +144,10 @@ export default {
     role: {
       name: "RoleService",
       path: "../services/roleService"
+    },
+    place: {
+      name: "PlaceService",
+      path: "../services/placeService"
     },
     appointment: {
       name: "AppointmentService",
