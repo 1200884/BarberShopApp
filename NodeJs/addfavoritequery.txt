@@ -1,0 +1,3 @@
+UPDATE public."Clientes"
+SET favorites = ARRAY_APPEND(favorites, $1)
+WHERE email = $2;

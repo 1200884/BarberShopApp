@@ -29,6 +29,7 @@ export default (app: Router) => {
     route.get('/barbeiros',(req, res, next) => ctrl.findBarbeiros( req, res, next));
     route.get('/cabeleireiros',(req, res, next) => ctrl.findCabeleireiros( req, res, next));
     route.get('/esteticistas',(req, res, next) => ctrl.findEsteticistas( req, res, next));
+    route.get('/:str',(req, res, next) => ctrl.getPlace(req.params.str, req, res, next));
 
 
 

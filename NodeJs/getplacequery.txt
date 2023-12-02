@@ -1,0 +1,1 @@
+select * from "Places" where name = $1

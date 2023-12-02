@@ -4,11 +4,12 @@ import { IPlaceDTO } from "../../dto/IPlaceDTO";
 
 export default interface IPlaceService  {
   createPlace(placeDTO: IPlaceDTO): Promise<Result<IPlaceDTO>>;
-  disablePlace(place:string, day:string, hour: string, type: string): Promise<Result<IPlaceDTO>>;
+  disablePlace(place:string, day:string, accountable: string, type: string): Promise<Result<IPlaceDTO>>;
   getPlaces(): Promise<Result<IPlaceDTO[]>>;
-  existsPlace(address: string)
+  existsPlace(address: string);
   findBarbeiros():Promise<Result<IPlaceDTO[]>>;
   findCabeleireiros():Promise<Result<IPlaceDTO[]>>;
   findEsteticistas():Promise<Result<IPlaceDTO[]>>;
   findSolarios():Promise<Result<IPlaceDTO[]>>;
+  getPlace(name: string): Promise<Result<IPlaceDTO>>;
 }

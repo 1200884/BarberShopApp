@@ -32,7 +32,7 @@ export class ReservationsComponent implements AfterViewInit {
   initCalendar() {
     const filteredAppointments = this.appointments.filter(appointment => {
       if (this.userEmail != null) {
-        return appointment.hour.trim() === this.userEmail.trim();
+        return appointment.accountable.trim() === this.userEmail.trim();
       } else {
         return null;
       }
@@ -79,7 +79,7 @@ export class ReservationsComponent implements AfterViewInit {
           title: title,
           start: eventDate,
           end: eventEndDate,
-          classNames: ['fc-event-time'], // Adicione a classe para ser ignorada no CSS
+          classNames: ['fc-event-time'],
           appointmentDetails: appointment,
         };
       }),

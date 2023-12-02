@@ -9,8 +9,12 @@
 <div *ngIf="cabeleireirosFiltrados && cabeleireirosFiltrados.length > 0" class="cabeleireiros-container">
     <h2>Solários Encontrados:</h2>
     <div class="cabeleireiros-items">
-      <div *ngFor="let cabeleireiro of cabeleireirosFiltrados" class="cabeleireiro-item" >
+      <div *ngFor="let cabeleireiro of cabeleireirosFiltrados" class="cabeleireiro-item" (click)="redirect(cabeleireiro.name)">
         <div class="cabeleireiro-info">
+          <div class="favorite-icon" (click)="toggleFavorite(cabeleireiro.name);$event.stopPropagation()">
+            <mat-icon *ngIf="isFavorite(cabeleireiro.name); else notFavorite">star</mat-icon>
+            <ng-template #notFavorite><mat-icon>star_border</mat-icon></ng-template>
+        </div>
           {{ cabeleireiro.name }} - {{ cabeleireiro.address }}
         </div>
         <img

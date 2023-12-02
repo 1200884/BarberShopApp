@@ -12,7 +12,7 @@ interface AppointmentProps {
   name: string;
   place: string;
   day: string;
-  hour: string;
+  accountable: string;
   type: string;
 }
 
@@ -33,8 +33,8 @@ export class Appointment extends AggregateRoot<AppointmentProps> {
     return this.props.day;
   }
 
-  get hour (): string {
-    return this.props.hour;
+  get accountable (): string {
+    return this.props.accountable;
   }
 
   get type (): string {
@@ -53,8 +53,8 @@ export class Appointment extends AggregateRoot<AppointmentProps> {
     this.props.day = value;
   }
 
-  set hour (value: string) {
-    this.props.hour = value;
+  set accountable (value: string) {
+    this.props.accountable = value;
   }
   set type (value: string) {
     this.props.type = value;
@@ -72,7 +72,7 @@ export class Appointment extends AggregateRoot<AppointmentProps> {
     const name = appointmentDTO.name;
     const place = appointmentDTO.place;
     const day = appointmentDTO.day;
-    const hour = appointmentDTO.hour;
+    const accountable = appointmentDTO.accountable;
     const type = appointmentDTO.type;
     console.log("type do objeto é "+type)
 
@@ -82,7 +82,7 @@ export class Appointment extends AggregateRoot<AppointmentProps> {
     if (!email.includes('@')) {
       return Result.fail<Appointment>('The email needs to have the @ character')
     }*/
-    const appointment = new Appointment({ name: name, place: place, day: day, hour: hour, type: type})
+    const appointment = new Appointment({ name: name, place: place, day: day, accountable: accountable, type: type})
     console.log("appointment djiiddiw"+appointment.type)
     return Result.ok<Appointment>(appointment)
   }
@@ -92,9 +92,9 @@ export class Appointment extends AggregateRoot<AppointmentProps> {
     console.log(name)
     const place = appointmentDTO.place;
     const day = appointmentDTO.day;
-    const hour = appointmentDTO.hour;
+    const accountable = appointmentDTO.accountable;
     const type = appointmentDTO.type;
-      const appointment = new Appointment({ name: name, place: place, day: day, hour: hour, type: type}, id)
+      const appointment = new Appointment({ name: name, place: place, day: day, accountable: accountable, type: type}, id)
       return Result.ok<Appointment>(appointment)  
   }
 }

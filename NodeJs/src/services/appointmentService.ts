@@ -17,7 +17,7 @@ export default class AppointmentService implements IAppointmentService {
   public async createAppointment(appointmentDTO: IAppointmentDTO): Promise<Result<IAppointmentDTO>> {
     try {
         console.log("service "+ appointmentDTO.type)
-      const appointment = await this.appointmentRepo.existsAppointment(appointmentDTO.place,appointmentDTO.day,appointmentDTO.hour,appointmentDTO.type);
+      const appointment = await this.appointmentRepo.existsAppointment(appointmentDTO.place,appointmentDTO.day,appointmentDTO.accountable,appointmentDTO.type);
       if( appointment === false){
       const appointmentOrError = await Appointment.create(appointmentDTO);
 
@@ -41,9 +41,9 @@ export default class AppointmentService implements IAppointmentService {
 
 
   //mudar este metodo para fazer uma query com aqueles parametros (delete where...)
-  public async disableAppointment(place:string, day:string, hour: string, type: string): Promise<Result<IAppointmentDTO>> {
+  public async disableAppointment(place:string, day:string, accountable: string, type: string): Promise<Result<IAppointmentDTO>> {
     try {
-      const appointment = await this.appointmentRepo.existsAppointment(place, day, hour, type);
+      const appointment = await this.appointmentRepo.existsAppointment(place, day, accountable, type);
 
       if (appointment === null) {
         return Result.fail<IAppointmentDTO>("Appointment not found");
@@ -52,7 +52,7 @@ export default class AppointmentService implements IAppointmentService {
         appointment.name = "Sem Nome";
         appointment.place = "Sem Nome";
         appointment.day = "aaa@aaa.com";
-        appointment.hour = "999999999";
+        appointment.accountable = "999999999";
         appointment.type = " no type"
         await this.appointmentRepo.save(appointment);
 

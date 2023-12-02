@@ -144,7 +144,7 @@ export default class PlaceService implements IPlaceService {
         place.name = "Sem Nome";
         place.place = "Sem Nome";
         place.day = "aaa@aaa.com";
-        place.hour = "999999999";
+        place.accountable = "999999999";
         place.type = " no type"
         await this.placeRepo.save(place);
 
@@ -177,5 +177,19 @@ export default class PlaceService implements IPlaceService {
         throw e;
       }
   }
+  public async getPlace(name:string): Promise<Result<IPlaceDTO>> {
+    try{
+      const place= await this.placeRepo.getPlace(name);
+    
+    if (place === null) {
+      return Result.fail<IPlaceDTO>("Place not found");
+    }
+      const placeDTO =PlaceMap.toDTO(place);
+      return Result.ok(placeDTO);
+    
+  }catch (e) {
+      throw e;
+    }
+}
 
 }

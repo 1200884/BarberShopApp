@@ -34,7 +34,7 @@ export default class AppointmentRepo implements IAppointmentRepo {
   
       const rawAppointment: any = AppointmentMap.toPersistence(appointment);
       try {
-      const query = this.replaceQueryParameters(queryFromFile, [rawAppointment.name, rawAppointment.place, rawAppointment.day, rawAppointment.hour, rawAppointment.type]);
+      const query = this.replaceQueryParameters(queryFromFile, [rawAppointment.name, rawAppointment.place, rawAppointment.day, rawAppointment.accountable, rawAppointment.type]);
       console.log("Generated SQL Query:", query);
       const result = await client.query(query);
       if (result.rows.length > 0) {
@@ -63,7 +63,7 @@ public replaceQueryParameters(query, values) {
   return query;
 }
 
-  public async existsAppointment (place:string, day:string, hour: string, type: string): Promise<Boolean> {
+  public async existsAppointment (place:string, day:string, accountable: string, type: string): Promise<Boolean> {
     console.log("this.existsAppointment")
     console.log("type é "+type)
     const { connectionString } = config.postgres;
@@ -74,7 +74,7 @@ public replaceQueryParameters(query, values) {
       const query = queryFromFile
       .replace(/\$1/g, `'${place}'`)
       .replace(/\$2/g, `'${day}'`)
-      .replace(/\$3/g, `'${hour}'`)
+      .replace(/\$3/g, `'${accountable}'`)
       .replace(/\$4/g, `'${type}'`);
         const result = await client.query(query);
         console.log("query é "+query)

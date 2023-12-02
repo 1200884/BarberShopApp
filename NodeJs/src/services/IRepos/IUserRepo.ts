@@ -9,6 +9,12 @@ export default interface IUserRepo extends Repo<User> {
 	findAll(): Promise<User[]>;
 	isClient(email : string):Promise<boolean>;
 	isEmployee(email : string):Promise<boolean>;
-	disableEmployee(email: string):Promise<boolean>,
+	disableEmployee(email: string):Promise<boolean>;
+	addFavorite(favorite: string, email: string):Promise<boolean>;
+	checkFavorite(favorite: string, email:string):Promise<boolean>;
+	getFavorites(email : string):Promise<string[]>;
+	removeFavorite(favorite: string, email: string):Promise<boolean>;
+
+
 }
   

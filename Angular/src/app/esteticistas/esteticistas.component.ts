@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlacesService } from '../_services/places.service';
+import { AuthService } from '../_services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-esteticistas',
@@ -10,11 +12,16 @@ export class EsteticistasComponent implements OnInit {
     searchTerm: string = '';
     esteticistas: any[] = [];
     esteticistasFiltrados: any[] = [];
-  
-    constructor(private placeService: PlacesService) {}
+    favoritos: string[] = [];
+    userEmail = this.authService.getUserEmail();
+
+
+    constructor(private placeService: PlacesService,private authService: AuthService, private router: Router) {}
   
     ngOnInit() {
       this.carregarEsteticistas();
+      this.carregarFavoritos();
+
     }
   
     carregarEsteticistas() {
@@ -28,6 +35,16 @@ export class EsteticistasComponent implements OnInit {
         }
       );
     }
+    carregarFavoritos() {
+      this.authService.getFavorites(this.userEmail).subscribe(
+        (data: any) => {
+          this.favoritos = data;
+        },
+        error => {
+          console.error('Erro ao buscar favoritos:', error);
+        }
+      );
+    }
   
     filtrarEsteticistas() {
       if (!this.searchTerm) {
@@ -38,6 +55,30 @@ export class EsteticistasComponent implements OnInit {
           esteticista.name.toLowerCase().includes(termoLowerCase)
         );
       }
+    }
+
+    isFavorite(nomeesteticista: string): boolean {
+      console.log("is favorite ->"+nomeesteticista)
+      return this.favoritos.includes(nomeesteticista);
+    }
+  
+    toggleFavorite(nomeesteticista: string) {
+      if (this.isFavorite(nomeesteticista)) {
+        this.authService.removeFavorite(this.userEmail, nomeesteticista).subscribe(() => {
+          // Atualizar localmente a lista de favoritos
+          this.favoritos = this.favoritos.filter(favorite => favorite !== nomeesteticista);
+        });
+      } else {
+        this.authService.addFavorite(this.userEmail, nomeesteticista).subscribe(() => {
+          // Atualizar localmente a lista de favoritos
+          this.favoritos.push(nomeesteticista);
+        });
+      }
+    }
+    redirect(nomeesteticista: string) {
+      const nomeesteticistaendpoint = nomeesteticista.replace(/\s/g, '').toLowerCase();
+      const newurl = '/' + nomeesteticistaendpoint;
+      this.router.navigate([newurl]);
     }
   }
   

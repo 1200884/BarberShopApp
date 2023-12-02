@@ -8,4 +8,8 @@ export default interface IUserService  {
   getUsers(): Promise<Result<IUserDTO[]>>;
   isClient(email:string):Promise<boolean>;
   isEmployee(email:string):Promise<boolean>;
+  addFavorite(favorite: string, email:string):Promise<Boolean>;
+  getFavorites(email:string):Promise<string[]>;
+  removeFavorite(favorite: string, email:string):Promise<Boolean>;
+
 }

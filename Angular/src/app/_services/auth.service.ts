@@ -16,13 +16,14 @@ export class AuthService {
    // Declare uma propriedade para manter a inscrição
 
   constructor(private http: HttpClient) { }
-  private userEmail: string | null = null;
+  private userEmail: string ='';
   private subscription: Subscription = new Subscription(); // Inicialize a propriedade 'subscription'
+
   setUserEmail(email: string) {
     this.userEmail = email;
   }
 
-  getUserEmail(): string | null {
+  getUserEmail(): string {
     return this.userEmail;
   }
   register(user: User | undefined): Observable<User> {
@@ -41,7 +42,23 @@ export class AuthService {
   isEmployee(email: string): Observable<boolean>{
     return this.http.get<boolean>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL+"/isemployee/"+email);
   }
-
+  addFavorite(email:string,favorite:string): Observable<boolean>{
+    const body = {
+      email: email,
+      favorite: favorite
+    };
+    return this.http.post<boolean>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL+"/addfavorite",body)
+  }
+  getFavorites(email: string): Observable<string[]>{
+    return this.http.get<string[]>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL+"/getfavorites/"+email);
+  }
+  removeFavorite(email:string,favorite:string): Observable<boolean>{
+    const body = {
+      email: email,
+      favorite: favorite
+    };
+    return this.http.post<boolean>(environment.LOGISTICS_URL_LOCAL + environment.AUTH_URL+"/removefavorite",body)
+  }
 
 inactive(email: string): Observable<boolean> {
   console.log("email service: " + email);

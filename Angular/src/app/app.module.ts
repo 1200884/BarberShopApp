@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -26,6 +27,8 @@ import { EsteticistasComponent } from './esteticistas/esteticistas.component';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
+import { ExemploestabelecimentoComponent } from './estabelecimentosespecificos/exemploestabelecimento/exemploestabelecimento.component';
+import { FavoritosComponent } from './favoritos/favoritos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +47,8 @@ import {MatCardModule} from '@angular/material/card';
     CabeleireirosComponent,
     BarbeirosComponent,
     EsteticistasComponent,
+    ExemploestabelecimentoComponent,
+    FavoritosComponent,
    
   ],
   imports: [
@@ -54,6 +59,7 @@ import {MatCardModule} from '@angular/material/card';
     NgxPaginationModule,
     SocialLoginModule,
     MatInputModule,
+    MatIconModule,
     BrowserAnimationsModule,
     MatCardModule
 

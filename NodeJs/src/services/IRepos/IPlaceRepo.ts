@@ -11,5 +11,6 @@ export default interface IPlaceRepo extends Repo<Place> {
     findCabeleireiros():Promise<Place[]>;
 	findEsteticistas():Promise<Place[]>;
     findSolarios():Promise<Place[]>;
+    getPlace(name:string):Promise<Place>;
 }
   

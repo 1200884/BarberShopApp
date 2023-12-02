@@ -30,6 +30,7 @@ export default class UserController implements IUserController {
     }
   }
   public async signIn(id: string, req: Request, res: Response, next: NextFunction) {
+    console.log("signin controller")
     try {
       const userOrError = await this.userServiceInstance.signIn(id) as Result<IUserDTO>;
 
@@ -107,6 +108,51 @@ export default class UserController implements IUserController {
 
       const userDTO = userOrError.getValue();
       return res.status(200).json(userDTO);
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
+  
+  public async addFavorite(req: Request, res: Response, next: NextFunction) {
+    console.log("controller favorite is" + req.body.favorite)
+    try {
+      const userOrError = await this.userServiceInstance.addFavorite(req.body.favorite,req.body.email) as Boolean;
+
+      if (userOrError == null) {
+        return res.status(402).send();
+      }
+
+
+      return res.json(userOrError).status(201);
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
+  public async getFavorites(email: string, req: Request, res: Response, next: NextFunction) {
+    console.log("get favorites controller")
+    try {
+      const getFavoriteslist = await this.userServiceInstance.getFavorites(email);
+        if (getFavoriteslist.length>=0) {
+        return res.status(200).json(getFavoriteslist);
+      }
+      return res.status(404).send();
+
+    } catch (e) {
+      return next(e);
+    }  
+  }
+  public async removeFavorite(req: Request, res: Response, next: NextFunction) {
+    console.log("controller favorite is" + req.body.favorite)
+    try {
+      const removeFavoriteorError = await this.userServiceInstance.removeFavorite(req.body.favorite,req.body.email) as Boolean;
+
+      if (removeFavoriteorError == null) {
+        return res.status(402).send();
+      }
+
+      return res.json(removeFavoriteorError).status(201);
     }
     catch (e) {
       return next(e);

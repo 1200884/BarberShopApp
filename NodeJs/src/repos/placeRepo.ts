@@ -260,6 +260,38 @@ public replaceQueryParameters(query, values) {
     }
   }
 
+
+
+
+  public async getPlace (name: string): Promise<Place> {
+    console.log("this.getPlace")
+    console.log("address é "+name)
+    const { connectionString } = config.postgres;
+    const client = new Pool({ connectionString });
+    const queryFromFile = fs.readFileSync('getplacequery.txt', 'utf8');
+    try {
+      // Executa a consulta com o email passado como parâmetro
+      const query = queryFromFile
+      .replace(/\$1/g, `'${name}'`);
+        const result = await client.query(query);
+        console.log("query é "+query)
+      // Verifica se há resultados
+      if (result.rows.length > 0) {
+        console.log("place encontrado")
+        return PlaceMap.toDomain(result.rows[0]);
+      } else {
+        console.log("nada encontrado ")
+       return null
+        
+      }
+    } catch (error) {
+      console.error('Erro ao executar a consulta SQL:', error);
+    } finally {
+      // Certifique-se de liberar a conexão com o banco de dados
+      client.end();
+    }
+  }
+
   
 
   public async findAll(): Promise<Place[]> {

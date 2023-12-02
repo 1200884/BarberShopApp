@@ -14,6 +14,7 @@ export class PlacesService {
     return this.http.get<Place[]>(environment.LOGISTICS_URL_LOCAL + environment.PLACES_URL );
   }
   getSolarios(): Observable<Place[]> {
+    console.log("solarios service angular")
     return this.http.get<Place[]>(environment.LOGISTICS_URL_LOCAL + environment.PLACES_URL + "/solarios");
   }
   getEsteticistas(): Observable<Place[]> {
@@ -24,5 +25,8 @@ export class PlacesService {
   }
   getBarbeiros(): Observable<Place[]> {
     return this.http.get<Place[]>(environment.LOGISTICS_URL_LOCAL + environment.PLACES_URL + "/barbeiros");
+  }
+  getPlace(name: string): Observable<Place>{
+    return this.http.get<Place>(environment.LOGISTICS_URL_LOCAL + environment.PLACES_URL + "/"+ name);
   }
 }

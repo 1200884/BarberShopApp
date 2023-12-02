@@ -13,4 +13,5 @@ export default interface IPlaceController {
     findCabeleireiros(req: Request, res: Response, next: NextFunction);
     findEsteticistas(req: Request, res: Response, next: NextFunction);
     findSolarios(req: Request, res: Response, next: NextFunction);
+    getPlace(name: string, req: Request, res: Response, next: NextFunction);
 }

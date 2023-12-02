@@ -26,4 +26,7 @@ export class BoardClientComponent {
   esteticistas(){
     this.router.navigate(['/esteticistas'])
   }
+  favoritos(){
+    this.router.navigate(['/favoritos'])
+  }
 }

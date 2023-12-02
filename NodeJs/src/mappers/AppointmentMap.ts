@@ -19,7 +19,7 @@ export class AppointmentMap extends Mapper<Appointment> {
       name: appointment.name,
       place: appointment.place,
       day: appointment.day,
-      hour: appointment.hour,
+      accountable: appointment.accountable,
       type: appointment.type
     } as IAppointmentDTO;
   }
@@ -37,7 +37,7 @@ export class AppointmentMap extends Mapper<Appointment> {
     const a = {
       domainId: appointment.id.toString(),
       name: appointment.name,
-      hour: appointment.hour,
+      accountable: appointment.accountable,
       day: appointment.day,
       place: appointment.place,
       type: appointment.type,

@@ -14,6 +14,7 @@ export default class UserService implements IUserService {
   ) { }
 
   public async createUser(userDTO: IUserDTO): Promise<Result<IUserDTO>> {
+    console.log("create user service")
     try {
 
       const user = await this.userRepo.findByEmail(userDTO.email);
@@ -68,6 +69,7 @@ export default class UserService implements IUserService {
   
 
   public async signIn(email: string): Promise<Result<IUserDTO>> {
+    console.log("sign in service")
     try {
       const user = await this.userRepo.findByEmail(email);
 
@@ -84,6 +86,7 @@ export default class UserService implements IUserService {
   }
 
   public async disableUser(email: string): Promise<Boolean> {
+    console.log("disableUser Service")
     try {
       const user = await this.userRepo.findByEmail(email);
       console.log("e-mail existe")
@@ -98,5 +101,46 @@ export default class UserService implements IUserService {
       throw e;
     }
   }
+  public async addFavorite(favorite: string, email:string): Promise<Boolean> {
+    console.log("favorite is" + favorite)
 
+    try {
+      const existsfavorite = await this.userRepo.checkFavorite(favorite,email);
+      if( existsfavorite === false){
+        this.userRepo.addFavorite(favorite,email)
+        return await this.userRepo.checkFavorite(favorite,email)
+      
+
+      
+      }else{
+        console.log("existsfavorite= "+existsfavorite)
+        return false;}
+    } catch (e) {
+      throw e;
+    }
+  }
+  
+  public async getFavorites(email: string): Promise<string[]> {
+     console.log("getfavorites service")
+     return this.userRepo.getFavorites(email);
+  }
+  
+  public async removeFavorite(favorite: string, email:string): Promise<Boolean> {
+    console.log("favorite to be removed is" + favorite)
+
+    try {
+      const existsfavorite = await this.userRepo.checkFavorite(favorite,email);
+      if( existsfavorite === true){
+        this.userRepo.removeFavorite(favorite,email)
+        return await this.userRepo.checkFavorite(favorite,email)
+      
+
+      
+      }else{
+        console.log("existsfavorite= "+existsfavorite)
+        return false;}
+    } catch (e) {
+      throw e;
+    }
+  }
 }

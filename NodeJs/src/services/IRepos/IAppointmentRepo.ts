@@ -6,7 +6,7 @@ export default interface IAppointmentRepo extends Repo<Appointment> {
 	//findById (id: string): Promise<Appointment>;
 	findAll(): Promise<Appointment[]>;
     //findByHour(hour: string): Promise<Appointment[]>
-    existsAppointment(place:string, day:string, hour: string, type: string)
+    existsAppointment(place:string, day:string, accountable: string, type: string)
 	
 }
   

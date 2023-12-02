@@ -131,4 +131,20 @@ export default class PlaceController implements IPlaceController {
       return next(e);
     }
   }
+  public async getPlace(name:string , req: Request, res: Response, next: NextFunction) {
+    console.log("getting specific Place");
+    try {
+      const placeOrError = await this.placeServiceInstance.getPlace(name) as Result<IPlaceDTO>;
+
+      if (placeOrError.isFailure) {
+        return res.status(402).send();
+      }
+
+      const placeDTO = placeOrError.getValue();
+      return res.json(placeDTO).status(201);
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
 }

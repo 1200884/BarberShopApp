@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PlacesService } from '../_services/places.service';
+import { AuthService } from '../_services/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,11 +13,14 @@ export class CabeleireirosComponent implements OnInit {
   searchTerm: string = '';
   cabeleireiros: any[] = [];
   cabeleireirosFiltrados: any[] = [];
-
-  constructor(private placeService: PlacesService) {}
+  favoritos: string[] = [];
+  userEmail = this.authService.getUserEmail();
+  constructor(private placeService: PlacesService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.carregarCabeleireiros();
+    this.carregarFavoritos();
+
   }
 
   carregarCabeleireiros() {
@@ -29,7 +34,16 @@ export class CabeleireirosComponent implements OnInit {
       }
     );
   }
-
+  carregarFavoritos() {
+    this.authService.getFavorites(this.userEmail).subscribe(
+      (data: any) => {
+        this.favoritos = data;
+      },
+      error => {
+        console.error('Erro ao buscar favoritos:', error);
+      }
+    );
+  }
   filtrarCabeleireiros() {
     if (!this.searchTerm) {
       this.cabeleireirosFiltrados = this.cabeleireiros;
@@ -39,5 +53,28 @@ export class CabeleireirosComponent implements OnInit {
         cabeleireiro.name.toLowerCase().includes(termoLowerCase)
       );
     }
+  }
+  isFavorite(nomecabeleireiro: string): boolean {
+    console.log("is favorite ->"+nomecabeleireiro)
+    return this.favoritos.includes(nomecabeleireiro);
+  }
+
+  toggleFavorite(nomecabeleireiro: string) {
+    if (this.isFavorite(nomecabeleireiro)) {
+      this.authService.removeFavorite(this.userEmail, nomecabeleireiro).subscribe(() => {
+        // Atualizar localmente a lista de favoritos
+        this.favoritos = this.favoritos.filter(favorite => favorite !== nomecabeleireiro);
+      });
+    } else {
+      this.authService.addFavorite(this.userEmail, nomecabeleireiro).subscribe(() => {
+        // Atualizar localmente a lista de favoritos
+        this.favoritos.push(nomecabeleireiro);
+      });
+    }
+  }
+  redirect(nomecabeleireiro: string) {
+    const nomecabeleireiroendpoint = nomecabeleireiro.replace(/\s/g, '').toLowerCase();
+    const newurl = '/' + nomecabeleireiroendpoint;
+    this.router.navigate([newurl]);
   }
 }

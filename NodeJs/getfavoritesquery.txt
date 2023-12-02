@@ -1,0 +1,1 @@
+select favorites from "Clientes" where email = $1

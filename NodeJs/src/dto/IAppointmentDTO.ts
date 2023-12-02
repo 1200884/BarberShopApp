@@ -4,7 +4,7 @@ export interface IAppointmentDTO {
     name: string;
     place: string;
     day: string;
-    hour: string;
+    accountable: string;
     type: string
   }
   

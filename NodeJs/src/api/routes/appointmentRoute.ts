@@ -18,7 +18,7 @@ export default (app: Router) => {
         name: Joi.string().required(),
         place: Joi.string().required(),
         day: Joi.string().required(),
-        hour: Joi.string().required(),
+        accountable: Joi.string().required(),
         type: Joi.string().required()
       }),
     }),

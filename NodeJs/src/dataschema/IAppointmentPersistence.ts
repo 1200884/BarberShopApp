@@ -3,6 +3,6 @@ export interface IAppointmentPersistence {
 	name: string;
 	place: string;
 	day: string;
-	hour: string;
+	accountable: string;
 	type: string
   }

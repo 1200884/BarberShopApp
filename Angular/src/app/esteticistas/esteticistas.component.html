@@ -5,11 +5,16 @@
   </mat-form-field>
 </div>
 
-<div *ngIf="esteticistasFiltrados && esteticistasFiltrados.length > 0" class="esteticistas-container">
-    <h2>Solários Encontrados:</h2>
+<div *ngIf="esteticistasFiltrados && esteticistasFiltrados.length > 0" class="esteticistas-container" >
+    <h2>Esteticistas Encontrados:</h2>
     <div class="esteticistas-items">
-      <div *ngFor="let esteticista of esteticistasFiltrados" class="esteticista-item" >
+      <div *ngFor="let esteticista of esteticistasFiltrados" class="esteticista-item" (click)="redirect(esteticista.name)">
         <div class="esteticista-info">
+          
+          <div class="favorite-icon" (click)="toggleFavorite(esteticista.name);$event.stopPropagation()">
+            <mat-icon *ngIf="isFavorite(esteticista.name); else notFavorite">star</mat-icon>
+            <ng-template #notFavorite><mat-icon>star_border</mat-icon></ng-template>
+        </div>
           {{ esteticista.name }} - {{ esteticista.address }}
         </div>
         <img
