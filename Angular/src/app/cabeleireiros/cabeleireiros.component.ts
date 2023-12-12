@@ -77,4 +77,7 @@ export class CabeleireirosComponent implements OnInit {
     const newurl = '/' + nomecabeleireiroendpoint;
     this.router.navigate([newurl]);
   }
+  goBack(){
+    this.router.navigate(['/board-client'])
+  }
 }

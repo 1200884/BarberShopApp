@@ -31,9 +31,10 @@
     <input matInput placeholder="Pesquisar" [(ngModel)]="searchTerm" (input)="filtrarSolarios()">
   </mat-form-field>
 </div>
+<button mat-raised-button (click)="goBack()">Voltar</button>
 
 <div *ngIf="solariosFiltrados && solariosFiltrados.length > 0" class="solarios-container">
-  <h2>Solários Encontrados:</h2>
+  <h2>Solários Disponíveis:</h2>
   <div class="solarios-items">
     <div *ngFor="let solario of solariosFiltrados" class="solario-item" (click)="redirect(solario.name)">
       <div class="solario-info">

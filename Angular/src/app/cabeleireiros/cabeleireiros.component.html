@@ -5,9 +5,9 @@
     <input matInput placeholder="Pesquisar" [(ngModel)]="searchTerm" (input)="filtrarCabeleireiros()">
   </mat-form-field>
 </div>
-
+<button mat-raised-button (click)="goBack()">Voltar</button>
 <div *ngIf="cabeleireirosFiltrados && cabeleireirosFiltrados.length > 0" class="cabeleireiros-container">
-    <h2>Solários Encontrados:</h2>
+    <h2>Solários Disponíveis:</h2>
     <div class="cabeleireiros-items">
       <div *ngFor="let cabeleireiro of cabeleireirosFiltrados" class="cabeleireiro-item" (click)="redirect(cabeleireiro.name)">
         <div class="cabeleireiro-info">

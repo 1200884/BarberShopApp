@@ -51,4 +51,7 @@ export class FavoritosComponent {
     this.router.navigate([newurl]);
   }
 
+  goBack(){
+    this.router.navigate(['/board-client'])
+  }
 }

@@ -17,6 +17,8 @@ import { CabeleireirosComponent } from './cabeleireiros/cabeleireiros.component'
 import { BarbeirosComponent } from './barbeiros/barbeiros.component';
 import { ExemploestabelecimentoComponent } from './estabelecimentosespecificos/exemploestabelecimento/exemploestabelecimento.component';
 import { FavoritosComponent } from './favoritos/favoritos.component';
+import { DescriptionExampleComponent } from './Descriptions/description-example/description-example.component';
+import { AppointmentExampleComponent } from './Appointments/appointment-example/appointment-example.component';
 const routes: Routes = [
   //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'users', component: GetUsersComponent },
@@ -35,7 +37,9 @@ const routes: Routes = [
   { path: 'cabeleireiros', component: CabeleireirosComponent},
   { path: 'barbeiros', component: BarbeirosComponent},
   { path: 'favoritos', component: FavoritosComponent},
-  { path: 'solario1', component:ExemploestabelecimentoComponent}
+  { path: 'solario1', component:ExemploestabelecimentoComponent},
+  { path: 'description1', component:DescriptionExampleComponent},
+  { path: 'appointment1', component:AppointmentExampleComponent}
   //{ path: 'login/callback', component: OktaCallbackComponent },
 ];
 

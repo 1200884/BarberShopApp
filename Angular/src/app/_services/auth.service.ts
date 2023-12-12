@@ -17,12 +17,22 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
   private userEmail: string ='';
+  private name: string ='';
+
   private subscription: Subscription = new Subscription(); // Inicialize a propriedade 'subscription'
 
   setUserEmail(email: string) {
+    console.log("setuser email true")
     this.userEmail = email;
   }
-
+  setName(name: string) {
+    console.log("name = "+name);
+    this.name = name;
+    console.log("this.name -> "+this.name)
+  }
+  getName(): string {
+    return this.name;
+  }
   getUserEmail(): string {
     return this.userEmail;
   }

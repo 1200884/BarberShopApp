@@ -29,6 +29,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
 import { ExemploestabelecimentoComponent } from './estabelecimentosespecificos/exemploestabelecimento/exemploestabelecimento.component';
 import { FavoritosComponent } from './favoritos/favoritos.component';
+import { AppointmentExampleComponent } from './Appointments/appointment-example/appointment-example.component';
+import { DescriptionExampleComponent } from './Descriptions/description-example/description-example.component';
+import { CalendarModule } from 'angular-calendar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +53,8 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
     EsteticistasComponent,
     ExemploestabelecimentoComponent,
     FavoritosComponent,
+    AppointmentExampleComponent,
+    DescriptionExampleComponent
    
   ],
   imports: [
@@ -61,7 +67,10 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
     MatInputModule,
     MatIconModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    CalendarModule,
+    
+    
 
   ],
   providers: [authInterceptorProviders, {

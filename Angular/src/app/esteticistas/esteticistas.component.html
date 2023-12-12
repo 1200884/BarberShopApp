@@ -4,9 +4,9 @@
     <input matInput placeholder="Pesquisar" [(ngModel)]="searchTerm" (input)="filtrarEsteticistas()">
   </mat-form-field>
 </div>
-
+<button mat-raised-button (click)="goBack()">Voltar</button>
 <div *ngIf="esteticistasFiltrados && esteticistasFiltrados.length > 0" class="esteticistas-container" >
-    <h2>Esteticistas Encontrados:</h2>
+    <h2>Esteticistas Disponíveis:</h2>
     <div class="esteticistas-items">
       <div *ngFor="let esteticista of esteticistasFiltrados" class="esteticista-item" (click)="redirect(esteticista.name)">
         <div class="esteticista-info">

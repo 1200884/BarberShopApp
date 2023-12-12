@@ -82,4 +82,7 @@ export class SolariosComponent implements OnInit {
       });
     }
   }
+  goBack(){
+    this.router.navigate(['/board-client'])
+  }
 }

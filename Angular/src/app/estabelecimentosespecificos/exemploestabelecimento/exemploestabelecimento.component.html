@@ -9,5 +9,6 @@
         class="solario-image"
       >
     </div>
-<button mat-raised-button >Descrição</button>
-<button mat-raised-button >Marcações</button>
+<button mat-raised-button (click)="redirectDescription()" >Descrição </button>
+<button mat-raised-button (click)="redirectAppointment()">Marcações</button>
+<button mat-raised-button (click)="goBack()">Voltar</button>

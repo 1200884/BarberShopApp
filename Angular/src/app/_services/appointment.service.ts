@@ -12,4 +12,15 @@ export class AppointmentService {
   getAppointments(): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(environment.LOGISTICS_URL_LOCAL + environment.APPOINTMENTS_URL);
   }
+  createAppointment(appointment: Appointment): Observable<Appointment> {
+    console.log("service creatappointment angular")
+    return this.http.post<Appointment>(environment.LOGISTICS_URL_LOCAL + environment.APPOINTMENTS_URL + "/create", appointment);
+  }
+  getAppointmentsFromPlace(place: string): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(environment.LOGISTICS_URL_LOCAL + environment.APPOINTMENTS_URL + "/" + place);
+  }
+  getAppointmentsFromPlaceAndBarber(place: string, accountable: string): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(environment.LOGISTICS_URL_LOCAL + environment.APPOINTMENTS_URL + "/" + place + "/" + accountable);
+
+  }
 }

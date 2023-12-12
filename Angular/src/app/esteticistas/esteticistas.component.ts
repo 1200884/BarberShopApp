@@ -80,5 +80,8 @@ export class EsteticistasComponent implements OnInit {
       const newurl = '/' + nomeesteticistaendpoint;
       this.router.navigate([newurl]);
     }
+    goBack(){
+      this.router.navigate(['/board-client'])
+    }
   }
   

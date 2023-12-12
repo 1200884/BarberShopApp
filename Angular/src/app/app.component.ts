@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
             this.isClient();
             this.isEmployee();
             this.authService.setUserEmail(user.email);
-           
+            this.authService.setName(user.firstName+" "+ user.lastName)
             // Chame isClient() aqui
           },
           err => {
@@ -133,6 +133,7 @@ export class AppComponent implements OnInit {
         } else {
           this.isAEmployee=false;
           console.log('Usuário não é um Employee.');
+         
         }
       });
     }

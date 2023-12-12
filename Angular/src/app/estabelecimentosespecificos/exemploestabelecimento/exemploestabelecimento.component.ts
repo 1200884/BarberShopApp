@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { PlacesService } from 'src/app/_services/places.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class ExemploestabelecimentoComponent {
   address: string = '';
   image: string = '';
 
-  constructor(private placesService: PlacesService) { }
+  constructor(private placesService: PlacesService, private router: Router) { }
 
   ngOnInit() {
     this.carregarSolario();
@@ -30,5 +31,15 @@ export class ExemploestabelecimentoComponent {
         console.error('Erro ao buscar informações do solário:', error);
       }
     );
+  }
+  redirectAppointment(){
+    this.router.navigate(['/appointment1']);
+  }
+  redirectDescription(){
+    this.router.navigate(['/description1']);
+
+  }
+  goBack(){
+    this.router.navigate(['/solarios'])
   }
 }

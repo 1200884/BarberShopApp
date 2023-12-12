@@ -78,5 +78,8 @@ export class BarbeirosComponent implements OnInit{
     const newurl = '/' + nomebarbeiroendpoint;
     this.router.navigate([newurl]);
   }
+  goBack(){
+    this.router.navigate(['/board-client'])
+  }
 }
 
