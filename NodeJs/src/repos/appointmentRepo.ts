@@ -16,24 +16,24 @@ const { Pool } = require('pg');
 @Service()
 export default class AppointmentRepo implements IAppointmentRepo {
   private models: any;
-  private client:PoolClient;
+  private client: PoolClient;
 
-  constructor( 
-    ) {
+  constructor(
+  ) {
   }
-    exists(t: Appointment): Promise<boolean> {
-        throw new Error('Method not implemented.');
-    }
+  exists(t: Appointment): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
 
-  
-  public async save (appointment: Appointment): Promise<Appointment> {
-    console.log("appointment to be saved is "+appointment.type)
+
+  public async save(appointment: Appointment): Promise<Appointment> {
+    console.log("appointment to be saved is " + appointment.type)
     const { connectionString } = config.postgres;
     const client = new Pool({ connectionString });
     const queryFromFile = fs.readFileSync('createappointmentquery.txt', 'utf8');
-  
-      const rawAppointment: any = AppointmentMap.toPersistence(appointment);
-      try {
+
+    const rawAppointment: any = AppointmentMap.toPersistence(appointment);
+    try {
       const query = this.replaceQueryParameters(queryFromFile, [rawAppointment.name, rawAppointment.place, rawAppointment.day, rawAppointment.accountable, rawAppointment.type]);
       console.log("Generated SQL Query:", query);
       const result = await client.query(query);
@@ -51,33 +51,33 @@ export default class AppointmentRepo implements IAppointmentRepo {
     } finally {
       client.end();
     }
-  
-}
 
-
-public replaceQueryParameters(query, values) {
-  // Substitui cada marcador de posição $X pelo valor correspondente
-  for (let i = 0; i < values.length; i++) {
-    query = query.replace(new RegExp(`\\$${i + 1}`, 'g'), `'${values[i]}'`);
   }
-  return query;
-}
 
-  public async existsAppointment (place:string, day:string, accountable: string, type: string): Promise<Boolean> {
+
+  public replaceQueryParameters(query, values) {
+    // Substitui cada marcador de posição $X pelo valor correspondente
+    for (let i = 0; i < values.length; i++) {
+      query = query.replace(new RegExp(`\\$${i + 1}`, 'g'), `'${values[i]}'`);
+    }
+    return query;
+  }
+
+  public async existsAppointment(place: string, day: string, accountable: string, type: string): Promise<Boolean> {
     console.log("this.existsAppointment")
-    console.log("type é "+type)
+    console.log("type é " + type)
     const { connectionString } = config.postgres;
     const client = new Pool({ connectionString });
     const queryFromFile = fs.readFileSync('existsappointmentquery.txt', 'utf8');
     try {
       // Executa a consulta com o email passado como parâmetro
       const query = queryFromFile
-      .replace(/\$1/g, `'${place}'`)
-      .replace(/\$2/g, `'${day}'`)
-      .replace(/\$3/g, `'${accountable}'`)
-      .replace(/\$4/g, `'${type}'`);
-        const result = await client.query(query);
-        console.log("query é "+query)
+        .replace(/\$1/g, `'${place}'`)
+        .replace(/\$2/g, `'${day}'`)
+        .replace(/\$3/g, `'${accountable}'`)
+        .replace(/\$4/g, `'${type}'`);
+      const result = await client.query(query);
+      console.log("query é " + query)
       // Verifica se há resultados
       if (result.rows.length > 0) {
         console.log("ja existe appointment")
@@ -85,8 +85,8 @@ public replaceQueryParameters(query, values) {
       } else {
         console.log("nada encontrado ")
         // Nenhum email igual entheres no emailcontrado
-       return false
-        
+        return false
+
       }
     } catch (error) {
       console.error('Erro ao executar a consulta SQL:', error);
@@ -96,7 +96,7 @@ public replaceQueryParameters(query, values) {
     }
   }
 
-  
+
 
   public async findAll(): Promise<Appointment[]> {
     console.log("Appointmentrepo findall()");
@@ -140,4 +140,86 @@ public replaceQueryParameters(query, values) {
       });
     });
   }
+
+  public async getAppointmentFromPlace(place: string): Promise<Appointment[]> {
+    console.log("Appointmentrepo getAppointmentFromPlace()");
+    const { connectionString } = config.postgres;
+    const client = new Pool({ connectionString });
+
+    return new Promise<Appointment[]>((resolve, reject) => {
+      fs.readFile('getappointmentfromplacequery.txt', 'utf8', async (err, data) => {
+        if (err) {
+          console.error('Erro ao ler a consulta do arquivo:', err);
+          reject(err);
+          return;
+        }
+
+        try {
+          const query = data.replace(/\$1/g, `'${place}'`);
+          console.log("query ->"+query)
+          const appointmentRecord = await client.query(query);
+          console.log("return appointmentfromplace()");
+
+          if (appointmentRecord) {
+            var appointmentsArray: Array<Appointment> = [];
+            for (var i = 0; i < appointmentRecord.rows.length; i++) {
+              console.log(appointmentRecord.rows[i])
+              console.log("---------")
+              console.log(appointmentRecord.rows[i].name)
+              appointmentsArray.push(AppointmentMap.toDomain(appointmentRecord.rows[i]));
+            }
+            resolve(appointmentsArray);
+          } else {
+            resolve(null);
+          }
+        } catch (err) {
+          reject(err);
+        } finally {
+          client.end();
+        }
+      });
+    });
+  }
+
+  public async getAppointmentFromPlaceAndAccountable(place: string, accountable: string): Promise<Appointment[]> {
+    console.log("Appointmentrepo getAppointmentFromPlaceAndAccountable()");
+    const { connectionString } = config.postgres;
+    const client = new Pool({ connectionString });
+
+    return new Promise<Appointment[]>((resolve, reject) => {
+      fs.readFile('getappointmentfromplaceandaccountablequery.txt', 'utf8', async (err, data) => {
+        if (err) {
+          console.error('Erro ao ler a consulta do arquivo:', err);
+          reject(err);
+          return;
+        }
+
+        try {
+          const query = data.replace(/\$1/g, `'${place}'`).replace(/\$2/g, `'${accountable}'`)
+          
+          console.log("query ->"+query)
+          const appointmentRecord = await client.query(query);
+          console.log("return appointmentfromplaceandaccountable()");
+
+          if (appointmentRecord) {
+            var appointmentsArray: Array<Appointment> = [];
+            for (var i = 0; i < appointmentRecord.rows.length; i++) {
+              console.log(appointmentRecord.rows[i])
+              console.log("---------")
+              console.log(appointmentRecord.rows[i].name)
+              appointmentsArray.push(AppointmentMap.toDomain(appointmentRecord.rows[i]));
+            }
+            resolve(appointmentsArray);
+          } else {
+            resolve(null);
+          }
+        } catch (err) {
+          reject(err);
+        } finally {
+          client.end();
+        }
+      });
+    });
+  }
+
 }  

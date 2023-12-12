@@ -45,4 +45,37 @@ export default class AppointmentController implements IAppointmentController {
       return next(e);
     }
   }
+  public async getAppointmentsFromPlace(place: string ,req: Request, res: Response, next: NextFunction){
+    try {
+      console.log("AppointmentFromPlace controller")
+      const appointmentOrError = await this.appointmentServiceInstance.getAppointmentsFromPlace(place) as Result<IAppointmentDTO[]>;
+
+      if (appointmentOrError.isFailure) {
+        return res.status(404).send();
+      }
+
+      const appointmentDTO = appointmentOrError.getValue();
+      return res.status(200).json(appointmentDTO);
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
+
+  public async getAppointmentsFromPlaceAndAccountable(place: string ,accountable: string, req: Request, res: Response, next: NextFunction){
+    try {
+      console.log("AppointmentFromPlace controller")
+      const appointmentOrError = await this.appointmentServiceInstance.getAppointmentsFromPlaceAndAccountable(place, accountable) as Result<IAppointmentDTO[]>;
+
+      if (appointmentOrError.isFailure) {
+        return res.status(404).send();
+      }
+
+      const appointmentDTO = appointmentOrError.getValue();
+      return res.status(200).json(appointmentDTO);
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
 }

@@ -85,5 +85,50 @@ export default class AppointmentService implements IAppointmentService {
         throw e;
       }
   }
+  public async getAppointmentsFromPlace(place: string): Promise<Result<IAppointmentDTO[]>> {
+    try{
+      const appointment= await this.appointmentRepo.getAppointmentFromPlace(place);
+    
+    if (appointment === null) {
+      return Result.fail<IAppointmentDTO[]>("Appointment not found");
+    }
+    
+    else{
+      const appointmentDTOResult = [];
+      for (let i = 0; i < appointment.length; i++) {
+          const appointments = appointment[i];
+          const appointmentDTO = AppointmentMap.toDTO(appointments);
+          appointmentDTOResult.push(appointmentDTO);
+      }
+      
+      return Result.ok(appointmentDTOResult);
+    }
+  }catch (e) {
+      throw e;
+    }
+}
+
+public async getAppointmentsFromPlaceAndAccountable(place: string, accountable:string): Promise<Result<IAppointmentDTO[]>> {
+  try{
+    const appointment= await this.appointmentRepo.getAppointmentFromPlaceAndAccountable(place, accountable);
+  
+  if (appointment === null) {
+    return Result.fail<IAppointmentDTO[]>("Appointment not found");
+  }
+  
+  else{
+    const appointmentDTOResult = [];
+    for (let i = 0; i < appointment.length; i++) {
+        const appointments = appointment[i];
+        const appointmentDTO = AppointmentMap.toDTO(appointments);
+        appointmentDTOResult.push(appointmentDTO);
+    }
+    
+    return Result.ok(appointmentDTOResult);
+  }
+}catch (e) {
+    throw e;
+  }
+}
 
 }

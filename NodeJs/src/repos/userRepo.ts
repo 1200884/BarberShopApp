@@ -284,7 +284,7 @@ export default class UserRepo implements IUserRepo {
         console.log('Array de Favoritos:', favoritesArray);
 
         if (favoritesArray && favoritesArray.length > 0) {
-          console.log("Favoritos encontrados:", favoritesArray);
+          console.log("Favoritos:", favoritesArray);
           return favoritesArray;
         } else {
           console.log("Nenhum favorito encontrado");

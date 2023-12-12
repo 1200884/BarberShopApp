@@ -25,8 +25,10 @@ export default (app: Router) => {
     (req, res, next) => ctrl.createAppointment(req, res, next));
 
     route.get('',(req, res, next) => ctrl.getAppointments(req, res, next));
- /* route.get('/:str',(req, res, next) => ctrl.signIn(req.params.str, req, res, next));
-  route.delete('/:str',(req, res, next) => ctrl.disableUser(req.params.str, req, res, next));
+    route.get('/:str',(req, res, next) => ctrl.getAppointmentsFromPlace(req.params.str, req, res, next));
+    route.get('/:str/:str2',(req, res, next) => ctrl.getAppointmentsFromPlaceAndAccountable(req.params.str,req.params.str2, req, res, next));
+
+  /*route.delete('/:str',(req, res, next) => ctrl.disableUser(req.params.str, req, res, next));
   route.get('/isclient/:str', (req, res, next) => ctrl.isClient(req.params.str, req, res, next));
   route.get('/isemployee/:str', (req, res, next) => ctrl.isEmployee(req.params.str, req, res, next));*/
 
