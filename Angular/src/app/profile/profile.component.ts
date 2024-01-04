@@ -1,17 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from '../_services/token-storage.service';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit {
-  currentUser: any;
+export class ProfileComponent {
 
-  constructor(private token: TokenStorageService) { }
+  constructor(private router: Router) {}
 
-  ngOnInit(): void {
-    this.currentUser = this.token.getUser();
+  futureAppointments() {
+    // Redirecionar para a página de registro de funcionários
+    this.router.navigate(['/future-appointments']);
   }
+  pastAppointments() {
+    // Redirecionar para a página de registro de funcionários
+    this.router.navigate(['/past-appointments']);
+  }
+  accountSettings() {
+    // Redirecionar para a página de registro de funcionários
+    this.router.navigate(['/account-settings']);
+  }
+
 }

@@ -1,3 +1,3 @@
 insert into "Appointments"(
-	"name", "place", "day", "accountable", "type")
-	VALUES ($1, $2, $3, $4, $5);
+	"name", "place", "day", "accountable", "type", "email")
+	VALUES ($1, $2, $3, $4, $5, $6);

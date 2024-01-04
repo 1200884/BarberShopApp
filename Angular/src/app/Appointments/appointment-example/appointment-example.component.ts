@@ -37,12 +37,14 @@ export class AppointmentExampleComponent {
   availableTimes: Array<string> = []; // Adicione esta propriedade
   daysOfWeek = DAYS_OF_WEEK;
   nomeutilizador = this.authService.getName()
+  emailutilizador = this.authService.getUserEmail()
   appointmentform: Appointment = {
     name: this.nomeutilizador, //"null", //this.authService.getName().toString(),
     place: "Solario 1",
     day: "null",
     accountable: "null",
-    type: "null"
+    type: "null",
+    email: this.emailutilizador
   };
   name: string = '';
   constructor(private appointmentService: AppointmentService, private authService: AuthService, private placesService: PlacesService, private router: Router) { }

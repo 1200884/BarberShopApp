@@ -5,6 +5,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { AppointmentService } from '../_services/appointment.service';
 import { AuthService } from '../_services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reservations',
@@ -18,13 +19,14 @@ export class ReservationsComponent implements AfterViewInit {
   selectedAppointment: any; // Variável para rastrear o compromisso selecionado
   userEmail: string | null;
 
-  constructor(private userService: AuthService,private appointmentService: AppointmentService) {
+  constructor(private userService: AuthService, private appointmentService: AppointmentService, private dialog: MatDialog) {
     this.userEmail = this.userService.getUserEmail();
-}
+  }
 
   ngAfterViewInit() {
-    this.appointmentService.getAppointments().subscribe(appointments => {
+    this.appointmentService.getAppointmentsFromPlace('Solario 1').subscribe(appointments => {
       this.appointments = appointments;
+      console.log("this.appointments -> " + this.appointments)
       this.initCalendar();
     });
   }
@@ -32,7 +34,7 @@ export class ReservationsComponent implements AfterViewInit {
   initCalendar() {
     const filteredAppointments = this.appointments.filter(appointment => {
       if (this.userEmail != null) {
-        return appointment.accountable.trim() === this.userEmail.trim();
+        return appointment.accountable.trim() != null;
       } else {
         return null;
       }
@@ -44,7 +46,8 @@ export class ReservationsComponent implements AfterViewInit {
       slotDuration: '00:30:00',
       views: {
         timeGrid: {
-          allDaySlot: false // Remova a visualização All Day
+          allDaySlot: false, // Remova a visualização All Day
+          slotHeight: 300, // Ajuste a altura conforme necessário
         },
       },
       slotMinTime: '08:00:00',
@@ -63,7 +66,7 @@ export class ReservationsComponent implements AfterViewInit {
         const eventDate = new Date(appointment.day);
         const eventEndDate = new Date(appointment.day);
         eventEndDate.setMinutes(eventEndDate.getMinutes() + 30);
-  
+
         const formattedTime = eventDate.toLocaleTimeString('pt-BR', {
           hour: '2-digit',
           minute: '2-digit',
@@ -72,9 +75,9 @@ export class ReservationsComponent implements AfterViewInit {
           hour: '2-digit',
           minute: '2-digit',
         });
-  
+
         const title = ` ${appointment.name}`;
-  
+
         return {
           title: title,
           start: eventDate,
@@ -83,16 +86,46 @@ export class ReservationsComponent implements AfterViewInit {
           appointmentDetails: appointment,
         };
       }),
-  
+
       eventClick: (info) => {
         this.selectedAppointment = info.event.extendedProps.appointmentDetails;
+        this.openDetailsModal(this.selectedAppointment);
       }
     });
-  
+
     this.calendar.render();
   }
+  openDetailsModal(appointment: any): void {
+    // Define os detalhes do compromisso selecionado
+    this.selectedAppointment = appointment;
+  }
+
+  formatDateAndTime(dateTime: string): string {
+    const formattedDateTime = new Date(dateTime);
+    
+    // Definir opções de formato para data
+    const dateOptions: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    };
   
+    // Obter a parte da data no formato desejado
+    const formattedDate = formattedDateTime.toLocaleDateString('pt-PT', dateOptions);
   
+    // Definir opções de formato para hora
+    const timeOptions: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+    };
   
+    // Obter a parte da hora no formato desejado
+    const formattedTime = formattedDateTime.toLocaleTimeString('pt-PT', timeOptions);
+  
+    // Retornar a data e hora formatadas
+    return `${formattedDate}, ${formattedTime}`;
+  }
+  
+
 
 }

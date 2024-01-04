@@ -20,7 +20,8 @@ export class AppointmentMap extends Mapper<Appointment> {
       place: appointment.place,
       day: appointment.day,
       accountable: appointment.accountable,
-      type: appointment.type
+      type: appointment.type,
+      email: appointment.email
     } as IAppointmentDTO;
   }
 
@@ -41,6 +42,7 @@ export class AppointmentMap extends Mapper<Appointment> {
       day: appointment.day,
       place: appointment.place,
       type: appointment.type,
+      email: appointment.email
     }
     return a;
   }

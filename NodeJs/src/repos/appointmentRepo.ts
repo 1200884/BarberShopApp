@@ -34,7 +34,7 @@ export default class AppointmentRepo implements IAppointmentRepo {
 
     const rawAppointment: any = AppointmentMap.toPersistence(appointment);
     try {
-      const query = this.replaceQueryParameters(queryFromFile, [rawAppointment.name, rawAppointment.place, rawAppointment.day, rawAppointment.accountable, rawAppointment.type]);
+      const query = this.replaceQueryParameters(queryFromFile, [rawAppointment.name, rawAppointment.place, rawAppointment.day, rawAppointment.accountable, rawAppointment.type, rawAppointment.email]);
       console.log("Generated SQL Query:", query);
       const result = await client.query(query);
       if (result.rows.length > 0) {
@@ -156,7 +156,7 @@ export default class AppointmentRepo implements IAppointmentRepo {
 
         try {
           const query = data.replace(/\$1/g, `'${place}'`);
-          console.log("query ->"+query)
+          console.log("query ->" + query)
           const appointmentRecord = await client.query(query);
           console.log("return appointmentfromplace()");
 
@@ -181,6 +181,82 @@ export default class AppointmentRepo implements IAppointmentRepo {
     });
   }
 
+
+  public async deleteAppointment(day: string, place: string, email:string, accountable: string): Promise<Boolean> {
+    console.log("this.existsAppointment")
+    console.log("accountable é " + accountable)
+    const { connectionString } = config.postgres;
+    const client = new Pool({ connectionString });
+    const queryFromFile = fs.readFileSync('deleteappointmentquery.txt', 'utf8');
+    try {
+      // Executa a consulta com o email passado como parâmetro
+      const query = queryFromFile
+        .replace(/\$1/g, `'${day}'`)
+        .replace(/\$2/g, `'${place}'`)
+        .replace(/\$3/g, `'${email}'`)
+        .replace(/\$4/g, `'${accountable}'`);
+      const result = await client.query(query);
+      console.log("query é " + query)
+      // Verifica se há resultados
+      if (result.rows.length > 0) {
+        console.log("ja existe appointment")
+        return true;
+      } else {
+        console.log("nada encontrado ")
+        // Nenhum email igual entheres no emailcontrado
+        return false
+
+      }
+    } catch (error) {
+      console.error('Erro ao executar a consulta SQL:', error);
+    } finally {
+      // Certifique-se de liberar a conexão com o banco de dados
+      client.end();
+    }
+  }
+
+  public async getAppointmentFromClient(email: string): Promise<Appointment[]> {
+    console.log("Appointmentrepo getAppointmentFromClient()");
+    const { connectionString } = config.postgres;
+    const client = new Pool({ connectionString });
+
+    return new Promise<Appointment[]>((resolve, reject) => {
+      fs.readFile('getappointmentfromclientquery.txt', 'utf8', async (err, data) => {
+        if (err) {
+          console.error('Erro ao ler a consulta do arquivo:', err);
+          reject(err);
+          return;
+        }
+
+        try {
+          const query = data.replace(/\$1/g, `'${email}'`);
+          console.log("query ->" + query)
+          const appointmentRecord = await client.query(query);
+          console.log("return appointmentfromplace()");
+
+          if (appointmentRecord) {
+            const appointmentsArray: Array<Appointment> = appointmentRecord.rows
+              .map(row => AppointmentMap.toDomain(row))
+              .sort((a, b) => {
+                const dateA = new Date(a.day);
+                const dateB = new Date(b.day);
+                return dateA.getTime() - dateB.getTime();
+              });
+
+            resolve(appointmentsArray);
+          } else {
+            resolve(null);
+          }
+        } catch (err) {
+          reject(err);
+        } finally {
+          client.end();
+        }
+      });
+    });
+  }
+
+
   public async getAppointmentFromPlaceAndAccountable(place: string, accountable: string): Promise<Appointment[]> {
     console.log("Appointmentrepo getAppointmentFromPlaceAndAccountable()");
     const { connectionString } = config.postgres;
@@ -196,8 +272,8 @@ export default class AppointmentRepo implements IAppointmentRepo {
 
         try {
           const query = data.replace(/\$1/g, `'${place}'`).replace(/\$2/g, `'${accountable}'`)
-          
-          console.log("query ->"+query)
+
+          console.log("query ->" + query)
           const appointmentRecord = await client.query(query);
           console.log("return appointmentfromplaceandaccountable()");
 

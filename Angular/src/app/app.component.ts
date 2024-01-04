@@ -82,8 +82,8 @@ export class AppComponent implements OnInit {
             this.isClient();
             this.isEmployee();
             this.authService.setUserEmail(user.email);
-            this.authService.setName(user.firstName+" "+ user.lastName)
-            // Chame isClient() aqui
+            this.authService.setName(data.firstName+" "+ data.lastName);
+            this.authService.setPhoneNumber(data.phoneNumber);
           },
           err => {
             console.log("erro");

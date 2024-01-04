@@ -45,6 +45,22 @@ export default class UserController implements IUserController {
       return next(e);
     }
   }
+  public async getUser(email: string, req: Request, res: Response, next: NextFunction) {
+    console.log("getUser controller")
+    try {
+      const userOrError = await this.userServiceInstance.getUser(email) as Result<IUserDTO>;
+
+      if (userOrError.isFailure) {
+        return res.status(404).send();
+      }
+
+      const userDTO = userOrError.getValue();
+      return res.status(201).json(userDTO);
+    }
+    catch (e) {
+      return next(e);
+    }
+  }
   public async isClient(email: string, req: Request, res: Response, next: NextFunction) {
     console.log("controller backend");
     try {

@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './board-admin/register/register.component';
-import { ProfileComponent } from './profile/profile.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { UsersComponent } from './users/users.component';
@@ -32,13 +31,17 @@ import { FavoritosComponent } from './favoritos/favoritos.component';
 import { AppointmentExampleComponent } from './Appointments/appointment-example/appointment-example.component';
 import { DescriptionExampleComponent } from './Descriptions/description-example/description-example.component';
 import { CalendarModule } from 'angular-calendar';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ProfileComponent } from './profile/profile.component';
+import { FutureAppointmentsComponent } from './future-appointments/future-appointments.component';
+import { PastAppointmentsComponent } from './past-appointments/past-appointments.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
     BoardAdminComponent,
     UsersComponent,
     BoardClientComponent,
@@ -54,7 +57,11 @@ import { CalendarModule } from 'angular-calendar';
     ExemploestabelecimentoComponent,
     FavoritosComponent,
     AppointmentExampleComponent,
-    DescriptionExampleComponent
+    DescriptionExampleComponent,
+    ProfileComponent,
+    FutureAppointmentsComponent,
+    PastAppointmentsComponent,
+    AccountSettingsComponent
    
   ],
   imports: [
@@ -69,7 +76,7 @@ import { CalendarModule } from 'angular-calendar';
     BrowserAnimationsModule,
     MatCardModule,
     CalendarModule,
-    
+    MatDialogModule
     
 
   ],

@@ -1,0 +1,1 @@
+delete from "Appointments" where day = $1 and place = $2 and email = $3 and accountable = $4

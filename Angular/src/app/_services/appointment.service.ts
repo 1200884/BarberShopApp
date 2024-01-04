@@ -19,8 +19,22 @@ export class AppointmentService {
   getAppointmentsFromPlace(place: string): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(environment.LOGISTICS_URL_LOCAL + environment.APPOINTMENTS_URL + "/" + place);
   }
+  getAppointmentsFromClient(email: string): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(environment.LOGISTICS_URL_LOCAL + environment.APPOINTMENTS_URL + "/client/" + email);
+  }
   getAppointmentsFromPlaceAndBarber(place: string, accountable: string): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(environment.LOGISTICS_URL_LOCAL + environment.APPOINTMENTS_URL + "/" + place + "/" + accountable);
-
+  }
+  deleteAppointment(day: string, place: string, email: string, accountable: string, type: string): Observable<boolean> {
+    console.log("delete appointment angular");
+    console.log("type -> " + type);
+    const body = {
+      day: day,
+      place: place,
+      accountable: accountable,
+      email: email,
+      type: type
+    };
+    return this.http.post<boolean>(environment.LOGISTICS_URL_LOCAL + environment.APPOINTMENTS_URL + "/delete/",body );
   }
 }

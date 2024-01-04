@@ -1,6 +1,7 @@
 #app{
-    width: auto;
-	min-height: 1500px; /* Default height */
+    min-width: 1000px;
+	max-width: 100%; 
+	/* Alterado de width para max-width */	min-height: 1500px; /* Default height */
   	height: auto; 
     background: linear-gradient(90deg, #C7C5F4, #776BCC);		
 	/*background: none;*/ /* Remova o plano de fundo do #app */
@@ -10,7 +11,8 @@
 	padding-left: 5px;
 	padding-right: 5px;
     height: fit-content;
-    margin-left: 2000%;
+	margin-left: 1200px; /* Mantenha a margem esquerda como 'auto' para centralizar na barra */
+	margin-right: 10px; /* Ajuste conforme necessário para o espaçamento desejado e mova para o canto direito */ 
 	border-radius: 5px;
 }
 #bar{
@@ -105,7 +107,13 @@
 	padding-top: 190px;
 }
 
-
+.profile-icon {
+	cursor: pointer; /* Adicione isso para indicar que é clicável */
+    margin-left: auto; /* Mantenha a margem esquerda como 'auto' para centralizar na barra */
+	margin-right: 10px; /* Ajuste conforme necessário para o espaçamento desejado e mova para o canto direito */  
+	color: white; /* Defina a cor desejada para o ícone, por exemplo, branco */
+}
+  
 
 
 

@@ -4,5 +4,6 @@ export interface IAppointmentPersistence {
 	place: string;
 	day: string;
 	accountable: string;
-	type: string
+	type: string,
+	email: string
   }

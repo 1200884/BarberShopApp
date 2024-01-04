@@ -5,7 +5,7 @@
       <ul class="navbar-nav mr-auto" routerLinkActive="active">
         
         <button *ngIf="loggedIn" id="logOut" mat-raised-button (click)="logout()">Logout</button>
-        
+        <mat-icon *ngIf="loggedIn" class="profile-icon" routerLink="/profile">person</mat-icon>
         
       </ul>
     </nav>

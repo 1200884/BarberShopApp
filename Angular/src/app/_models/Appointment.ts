@@ -5,4 +5,5 @@ export interface Appointment{
     day: string;
     accountable: string;
     type: string;
+    email: string;
 }

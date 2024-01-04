@@ -14,6 +14,7 @@ interface AppointmentProps {
   day: string;
   accountable: string;
   type: string;
+  email: string;
 }
 
 export class Appointment extends AggregateRoot<AppointmentProps> {
@@ -43,6 +44,13 @@ export class Appointment extends AggregateRoot<AppointmentProps> {
   
   set name (value: string) {
     this.props.name = value;
+  }
+  get email (): string {
+    return this.props.email;
+  }
+  
+  set email (value: string) {
+    this.props.email = value;
   }
 
   set place (value: string) {
@@ -74,6 +82,7 @@ export class Appointment extends AggregateRoot<AppointmentProps> {
     const day = appointmentDTO.day;
     const accountable = appointmentDTO.accountable;
     const type = appointmentDTO.type;
+    const email = appointmentDTO.email;
     console.log("type do objeto é "+type)
 
     /*if (email.length==0) {
@@ -82,7 +91,7 @@ export class Appointment extends AggregateRoot<AppointmentProps> {
     if (!email.includes('@')) {
       return Result.fail<Appointment>('The email needs to have the @ character')
     }*/
-    const appointment = new Appointment({ name: name, place: place, day: day, accountable: accountable, type: type})
+    const appointment = new Appointment({ name: name, place: place, day: day, accountable: accountable, type: type, email:email})
     console.log("appointment djiiddiw"+appointment.type)
     return Result.ok<Appointment>(appointment)
   }
@@ -94,7 +103,8 @@ export class Appointment extends AggregateRoot<AppointmentProps> {
     const day = appointmentDTO.day;
     const accountable = appointmentDTO.accountable;
     const type = appointmentDTO.type;
-      const appointment = new Appointment({ name: name, place: place, day: day, accountable: accountable, type: type}, id)
+    const email = appointmentDTO.email;
+      const appointment = new Appointment({ name: name, place: place, day: day, accountable: accountable, type: type, email:email}, id)
       return Result.ok<Appointment>(appointment)  
   }
 }
