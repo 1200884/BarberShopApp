@@ -87,7 +87,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
       providers: [
         {
           id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider('122519574160-f45pa7mcbvr2ofbpn7sb2t1addjks9uu.apps.googleusercontent.com') // your client id
+          provider: new GoogleLoginProvider() // SSO, inicialmente pode ser usado este que foi usado anteriormente, mas deve ser criado um, associado a quem desenvolve o projeto: '122519574160-f45pa7mcbvr2ofbpn7sb2t1addjks9uu.apps.googleusercontent.com'
         }
       ]
     } as SocialAuthServiceConfig,

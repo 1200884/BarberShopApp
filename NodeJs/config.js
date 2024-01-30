@@ -20,7 +20,7 @@ export default {
   /**
    * That long string from mlab
    */
-  databaseURL: process.env.DATABASE_URL || "postgresql://postgres:ShawnMichaels@localhost:5432/TesteBaseDados",
+  databaseURL: process.env.DATABASE_URL || // deve ser criada uma base de dados, nova, inicialmente pode ser usada esta : "postgresql://postgres:ShawnMichaels@localhost:5432/TesteBaseDados",
 
   /**
    * Your secret sauce
